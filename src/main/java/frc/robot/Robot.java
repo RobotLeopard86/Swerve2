@@ -4,22 +4,30 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
+	// Instance of autonomous command
 	private Command autonomousCommand;
 
+	// Manages controller input and command mapping
 	private RobotContainer robotContainer;
 
 	@Override
 	public void robotInit() {
+		// Yes I do believe we should make a robot container
 		robotContainer = new RobotContainer();
+
+		// Set brownout voltage to keep our baby roboRIO safe
+		RobotController.setBrownoutVoltage(6.0);
 	}
 
 	@Override
 	public void robotPeriodic() {
+		// Yes I do believe we should run the command scheduler
 		CommandScheduler.getInstance().run();
 	}
 
@@ -37,9 +45,12 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		// Fetch autonomous command
 		autonomousCommand = robotContainer.getAutonomousCommand();
 
+		// Null check
 		if (autonomousCommand != null) {
+			// Schedule the autonomous command
 			autonomousCommand.schedule();
 		}
 	}
@@ -54,6 +65,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		// Cancel the autonomous command
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
@@ -69,6 +81,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testInit() {
+		// Cancel everything when we start tests
 		CommandScheduler.getInstance().cancelAll();
 	}
 

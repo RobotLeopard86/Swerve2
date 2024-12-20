@@ -11,6 +11,7 @@ public final class Main {
 	}
 
 	public static void main(String... args) {
+		// Yes I do believe we should start the robot
 		RobotBase.startRobot(Robot::new);
 	}
 }

@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class RobotContainer {
 	public RobotContainer() {
+		// Set up controller input
 		configureBindings();
 	}
 
 	private void configureBindings() {
+		// TODO
 	}
 
 	public Command getAutonomousCommand() {
+		// We don't have autonomous yet
 		return Commands.print("No autonomous command configured");
 	}
 }
